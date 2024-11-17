@@ -10,9 +10,6 @@ ___INFO___
 {
   "displayName": "Octanist - Offline Conversion Tracking",
   "categories": ["LEAD_GENERATION", "SALES", "ADVERTISING", "ANALYTICS"],
-}
-
-{
   "type": "TAG",
   "id": "cvt_temp_public_id",
   "version": 1,
