@@ -1,7 +1,7 @@
-homepage: "https://forbusiness.snapchat.com"
-documentation: "https://businesshelp.snapchat.com/en-US/a/formatting-pixel"
+homepage: "https://octanist.com/"
+documentation: "https://docs.octanist.com/"
 versions:
   # Latest version
-  - sha: df2f8177638384334129a052acaf1d0ab45d869b
+  - sha: 66391c39f51379fe6e92bd333e45bb75acbf639c
     changeNotes: Includes version 0.1 of Octanist, featuring essential functionalities for lead qualification and offline conversion tracking. Captures data such as GCLID, company name, email, phone number, website/domain, and page path.
   
