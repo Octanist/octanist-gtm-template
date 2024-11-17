@@ -8,7 +8,7 @@ Octanist enhances the value of your online campaigns by enabling clients to qual
 - For support, reach out to **support@octanist.com**.
 - Create a free account at **[octanist.com](https://octanist.com)**.
 
-## How to use this template
+## How to use:
 
 1. **Upload the Template**: Upload this GTM template to your GTM container.
 2. **Create an Octanist Tag**: Create a tag using this GTM template.
