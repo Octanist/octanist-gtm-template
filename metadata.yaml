@@ -2,6 +2,8 @@ homepage: "https://octanist.com/"
 documentation: "https://docs.octanist.com/"
 versions:
   # Latest version
+  - sha: f11c36744bd59df83fc9aecf110b48a02827e350
+    changeNotes: Updated ad_user_data parameter.
   - sha: 6d4b3a1899ede266d1c4b4ce486aba1017607576
     changeNotes: Added ad_personalization parameter for Google Consent Mode.
   - sha: 62fa16a62f3b7780aac2c4762f0cda761e355355
