@@ -89,13 +89,41 @@ ___TEMPLATE_PARAMETERS___
         "help": "Enter the company associated with the submitted lead form, if available. Leave empty if not available."
       }
     ]
+  },
+  {
+    "type": "GROUP",
+    "name": "optional",
+    "displayName": "Optional",
+    "groupStyle": "ZIPPY_CLOSED",
+    "subParams": [
+      {
+        "type": "TEXT",
+        "name": "ga4Id",
+        "displayName": "GA4 - Measurement ID",
+        "simpleValueType": true,
+        "help": "Enter a valid GA4 Measurement ID (G-XXXXXXXXXX). This value can be found in your GA4 Datastream. Only enter this value if you want to send events for \u003ca href\u003d\"https://support.google.com/analytics/answer/9267735?hl\u003den#:~:text\u003dwebsite%20or%20app-,For%20lead%20generation,-We%20recommend%20these\"\u003eLead Generation\u003c/a\u003e.",
+        "alwaysInSummary": true,
+        "clearOnCopy": true,
+        "notSetText": "Enter a valid GA4 Measurement ID."
+      },
+      {
+        "type": "TEXT",
+        "name": "sf1",
+        "displayName": "Custom Field #1",
+        "simpleValueType": true,
+        "help": "Enter a custom value.",
+        "clearOnCopy": true,
+        "alwaysInSummary": true,
+        "notSetText": "Enter a custom value."
+      }
+    ]
   }
 ]
 
 
 ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
-/* octanist v0.1 - Visit https://octanist.com/ for more information
+/* octanist v0.2 - Visit https://octanist.com/ for more information
 
 octanist was created by Ward Lavrijen, Jorg van de Ven & John van Beek.
 
@@ -107,6 +135,7 @@ const getUrl = require('getUrl');
 const queryPermission = require('queryPermission');
 const sendPixel = require('sendPixel');
 const getCookieValues = require('getCookieValues');
+const isConsentGranted = require('isConsentGranted');
 
 // Field Data - Entered by the user
 const octId = data.octanistID;
@@ -114,25 +143,59 @@ const leadEmail = data.leadEmail;
 const leadPhone = data.leadPhone;
 const leadName = data.company;
 
+// Optional Field Data
+const ga4Id = data.ga4Id;
+const sf1 = data.sf1;
+
 // Get Google Ads Click Id Values
 let gcl_awCookie = getCookieValues('_gcl_aw');
-
 const gclid = (gcl_awCookie && gcl_awCookie[0]) ? gcl_awCookie[0].split(".")[2] : "";
+
+// Get Meta Click Id Values
+let fbcCookie = getCookieValues('_fbc');
+let fbpCookie = getCookieValues('_fbp');
+
+// Get Analytics Client & Session Id Values
+let gaCidCookie = getCookieValues('_ga');
+const gaClientId = (gaCidCookie && gaCidCookie[0]) ? gaCidCookie[0].slice(6) : "";
+
+let gaSidCookie;
+let gaSessionId;
+
+if (ga4Id) {
+  gaSidCookie = getCookieValues("_ga_" + ga4Id.slice(2));
+  gaSessionId = gaSidCookie[0].split(".")[2];
+}
 
 // Get Page & Website data
 const pathName = getUrl('path');
 const hostName = getUrl('host');
 
+// Google Consent Mode
+function getConsentStatus(type) {
+  return isConsentGranted(type);
+}
+
+const gcm_ad_storage = getConsentStatus('ad_storage');
+const gcm_analytics_storage = getConsentStatus('analytics_storage');
+
 // Create Final URL
-const url = "https://api.octanist.com/integrations/incoming/manual/" + octId + "/?";
+const url = "https://octanist.com/api/integrations/incoming/manual/" + octId + "/?";
 
 const urlParams = [];
-urlParams.push("gclid=" + gclid);
+urlParams.push("gclid=" + (gclid || ""));
+urlParams.push("ga4cid=" + (gaClientId || ""));
+urlParams.push("ga4sid=" + (gaSessionId || ""));
+urlParams.push("fbc=" + (fbcCookie || ""));
+urlParams.push("fbp=" + (fbpCookie || ""));
 urlParams.push("name=" + (leadName || ""));
 urlParams.push("email=" + (leadEmail || ""));
 urlParams.push("phone=" + (leadPhone || ""));
 urlParams.push("website=" + (hostName || ""));
 urlParams.push("path=" + (pathName || ""));
+urlParams.push("custom=" + (sf1 || ""));
+urlParams.push("ad_storage=" + (gcm_ad_storage));
+urlParams.push("analytics_storage=" + (gcm_analytics_storage));
 
 const finalUrl = url + urlParams.join("&");
 
@@ -192,7 +255,7 @@ ___WEB_PERMISSIONS___
             "listItem": [
               {
                 "type": 1,
-                "string": "https://api.octanist.com/*"
+                "string": "https://octanist.com/*"
               }
             ]
           }
@@ -252,6 +315,90 @@ ___WEB_PERMISSIONS___
       "isEditedByUser": true
     },
     "isRequired": true
+  },
+  {
+    "instance": {
+      "key": {
+        "publicId": "access_consent",
+        "versionId": "1"
+      },
+      "param": [
+        {
+          "key": "consentTypes",
+          "value": {
+            "type": 2,
+            "listItem": [
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "consentType"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "ad_storage"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "consentType"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "analytics_storage"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
+    },
+    "isRequired": true
   }
 ]
 
@@ -264,5 +411,3 @@ scenarios: []
 ___NOTES___
 
 Created on 11/1/2024, 8:30:20 PM
-
-
