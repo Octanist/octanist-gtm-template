@@ -2,6 +2,8 @@ homepage: "https://octanist.com/"
 documentation: "https://docs.octanist.com/"
 versions:
   # Latest version
+  - sha: 3d9a349ea0b367166bf9ff435697fe8b48d7ceb8
+    changeNotes: Includes version 0.2 of Octanist, featuring GA4, Meta, and Custom Field functionalities. Octanist now responds to Google Consent Mode settings.
   - sha: dffc69779a22e436dddbf9f11524ff297a8f1949
     changeNotes: Includes version 0.1 of Octanist, featuring essential functionalities for lead qualification and offline conversion tracking. Captures data such as GCLID, company name, email, phone number, website/domain, and page path.
   
