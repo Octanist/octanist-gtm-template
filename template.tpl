@@ -197,7 +197,7 @@ urlParams.push("website=" + (hostName || ""));
 urlParams.push("path=" + (pathName || ""));
 urlParams.push("custom=" + (sf1 || ""));
 urlParams.push("ad_storage=" + (gcm_ad_storage));
-urlParams.push("ad_user_storage=" + (gcm_ad_user_data));
+urlParams.push("ad_user_data=" + (gcm_ad_user_data));
 urlParams.push("ad_personalization=" + (gcm_ad_personalization));
 urlParams.push("analytics_storage=" + (gcm_analytics_storage));
 
