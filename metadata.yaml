@@ -3,7 +3,7 @@ documentation: "https://docs.octanist.com/"
 versions:
   # Latest version
   - sha: 62fa16a62f3b7780aac2c4762f0cda761e355355
-    changeNotes: Added ad_user_data parameter for Google Consent Mode.
+    changeNotes: Fixed typo.
   - sha: cc28c11d3b99cd825694a33e71eff4581d8ba56c
     changeNotes: Added ad_user_data parameter for Google Consent Mode.
   - sha: 3d9a349ea0b367166bf9ff435697fe8b48d7ceb8
