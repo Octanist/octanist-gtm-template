@@ -2,6 +2,8 @@ homepage: "https://octanist.com/"
 documentation: "https://docs.octanist.com/"
 versions:
   # Latest version
+  - sha: cc28c11d3b99cd825694a33e71eff4581d8ba56c
+    changeNotes: Added ad_user_data parameter for Google Consent Mode.
   - sha: 3d9a349ea0b367166bf9ff435697fe8b48d7ceb8
     changeNotes: Includes version 0.2 of Octanist, featuring GA4, Meta, and Custom Field functionalities. Octanist now responds to Google Consent Mode settings.
   - sha: dffc69779a22e436dddbf9f11524ff297a8f1949
