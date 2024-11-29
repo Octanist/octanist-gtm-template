@@ -178,6 +178,7 @@ function getConsentStatus(type) {
 
 const gcm_ad_storage = getConsentStatus('ad_storage');
 const gcm_ad_user_data = getConsentStatus('ad_user_data');
+const gcm_ad_personalization = getConsentStatus('ad_personalization');
 const gcm_analytics_storage = getConsentStatus('analytics_storage');
 
 // Create Final URL
@@ -196,7 +197,8 @@ urlParams.push("website=" + (hostName || ""));
 urlParams.push("path=" + (pathName || ""));
 urlParams.push("custom=" + (sf1 || ""));
 urlParams.push("ad_storage=" + (gcm_ad_storage));
-urlParams.push("ad_user_data=" + (gcm_ad_user_data));
+urlParams.push("ad_user_storage=" + (gcm_ad_user_data));
+urlParams.push("ad_personalization=" + (gcm_ad_personalization));
 urlParams.push("analytics_storage=" + (gcm_analytics_storage));
 
 const finalUrl = url + urlParams.join("&");
@@ -412,6 +414,37 @@ ___WEB_PERMISSIONS___
                   {
                     "type": 1,
                     "string": "ad_user_data"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "consentType"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "ad_personalization"
                   },
                   {
                     "type": 8,
