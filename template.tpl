@@ -122,7 +122,6 @@ ___TEMPLATE_PARAMETERS___
     "type": "GROUP",
     "name": "consent",
     "displayName": "Consent",
-    "groupStyle": "ZIPPY_CLOSED",
     "subParams": [
       {
         "type": "RADIO",
@@ -144,11 +143,11 @@ ___TEMPLATE_PARAMETERS___
                 "macrosInSelect": true,
                 "selectItems": [
                   {
-                    "value": "GRANTED",
+                    "value": true,
                     "displayValue": "Granted"
                   },
                   {
-                    "value": "DENIED",
+                    "value": false,
                     "displayValue": "Denied"
                   }
                 ],
@@ -162,11 +161,11 @@ ___TEMPLATE_PARAMETERS___
                 "macrosInSelect": true,
                 "selectItems": [
                   {
-                    "value": "GRANTED",
+                    "value": true,
                     "displayValue": "Granted"
                   },
                   {
-                    "value": "DENIED",
+                    "value": false,
                     "displayValue": "Denied"
                   }
                 ],
@@ -180,11 +179,11 @@ ___TEMPLATE_PARAMETERS___
                 "macrosInSelect": true,
                 "selectItems": [
                   {
-                    "value": "GRANTED",
+                    "value": true,
                     "displayValue": "Granted"
                   },
                   {
-                    "value": "DENIED",
+                    "value": false,
                     "displayValue": "Denied"
                   }
                 ],
@@ -198,11 +197,11 @@ ___TEMPLATE_PARAMETERS___
                 "macrosInSelect": true,
                 "selectItems": [
                   {
-                    "value": "GRANTED",
+                    "value": true,
                     "displayValue": "Granted"
                   },
                   {
-                    "value": "DENIED",
+                    "value": false,
                     "displayValue": "Denied"
                   }
                 ],
@@ -214,9 +213,12 @@ ___TEMPLATE_PARAMETERS___
             "help": "Use this option if you do \u003cb\u003enot\u003c/b\u003e have \u003ca href\u003d\"https://support.google.com/google-ads/answer/10000067?hl\u003den#:~:text\u003dConsent%20mode%20lets%20you%20communicate,behavior%20and%20respect%20users\u0027%20choices.\"\u003eGoogle Consent Mode\u003c/a\u003e. implemented or want to use your own variables and values to send data to Octanist. This is required for sending data to ad platforms with the user consent."
           }
         ],
-        "simpleValueType": true
+        "simpleValueType": true,
+        "defaultValue": "gcm",
+        "valueValidators": []
       }
-    ]
+    ],
+    "groupStyle": "ZIPPY_CLOSED"
   }
 ]
 
@@ -273,31 +275,14 @@ const hostName = getUrl('host');
 
 // Google Consent Mode
 
-const consentMethod = data.consentMethod;
+const consentMethod = data.consentMethod || "gcm"; // Default to "gcm" if not specified
 log("Selected consent method: " + consentMethod);
 
-let gcm_ad_storage;
-let gcm_ad_user_data;
-let gcm_ad_personalization;
-let gcm_analytics_storage;
+let gcm_ad_storage = consentMethod === "manual" ? data.gcmAdStorage : isConsentGranted('ad_storage');
+let gcm_ad_user_data = consentMethod === "manual" ? data.gcmAdUserData : isConsentGranted('ad_user_data');
+let gcm_ad_personalization = consentMethod === "manual" ? data.gcmAdPersonalization : isConsentGranted('ad_personalization');
+let gcm_analytics_storage = consentMethod === "manual" ? data.gcmAnalyticsStorage : isConsentGranted('analytics_storage');
 
-function normalizeConsent(value) {
-  if (value === "GRANTED") return true;
-  if (value === "DENIED") return false;
-  return !!value; 
-}
-
-if (consentMethod === "gcm") {
-  gcm_ad_storage = normalizeConsent(isConsentGranted('ad_storage'));
-  gcm_ad_user_data = normalizeConsent(isConsentGranted('ad_user_data'));
-  gcm_ad_personalization = normalizeConsent(isConsentGranted('ad_personalization'));
-  gcm_analytics_storage = normalizeConsent(isConsentGranted('analytics_storage'));
-} else if (consentMethod === "manual") {
-  gcm_analytics_storage = normalizeConsent(data.gcmAnalyticsStorage);
-  gcm_ad_user_data = normalizeConsent(data.gcmAdUserData);
-  gcm_ad_personalization = normalizeConsent(data.gcmAdPersonalization);
-  gcm_ad_storage = normalizeConsent(data.gcmAdStorage);
-} 
 
 // Create Final URL
 const url = "https://octanist.com/api/integrations/incoming/manual/" + octId + "/?";
