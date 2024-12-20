@@ -297,9 +297,7 @@ if (consentMethod === "gcm") {
   gcm_ad_user_data = normalizeConsent(data.gcmAdUserData);
   gcm_ad_personalization = normalizeConsent(data.gcmAdPersonalization);
   gcm_ad_storage = normalizeConsent(data.gcmAdStorage);
-} else {
-  log("Unknown consent method:", consentMethod);
-}
+} 
 
 // Create Final URL
 const url = "https://octanist.com/api/integrations/incoming/manual/" + octId + "/?";
