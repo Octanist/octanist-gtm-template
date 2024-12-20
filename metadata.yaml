@@ -2,9 +2,11 @@ homepage: "https://octanist.com/"
 documentation: "https://docs.octanist.com/"
 versions:
   # Latest version
-  - sha: 46be7f1707664ad2489c6038a9286d5eabd079eb
-    changeNotes: Added Google Consent Mode functionality.
+  - sha: 9d8a2b1cddc27b9bb6c6d5d11fc0cd5583d0f2f9
+    changeNotes: Better code and extended the GCM funtonality.
   # Older versions
+  - sha: 46be7f1707664ad2489c6038a9286d5eabd079eb
+    changeNotes: Added Google Consent Mode (GCM) functionality.
   - sha: f11c36744bd59df83fc9aecf110b48a02827e350
     changeNotes: Updated ad_user_data parameter.
   - sha: 6d4b3a1899ede266d1c4b4ce486aba1017607576
