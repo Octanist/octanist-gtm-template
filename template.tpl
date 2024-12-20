@@ -45,7 +45,7 @@ ___TEMPLATE_PARAMETERS___
         "alwaysInSummary": true,
         "clearOnCopy": true,
         "notSetText": "Please enter a valid ID, which can be found in your Octanist account.",
-        "help": "Enter your uniqueOctanist ID, which you can find in your octanist account."
+        "help": "Enter your unique Octanist ID, which you can find in your \u003ca href\u003d\"https://octanist.com/integrations/incoming/?utm_source\u003dgoogle\u0026utm_medium\u003dgtm\u0026utm_campaign\u003doctanist_gtm_template\u0026utm_id\u003doctanist_gtm_template_help_text\u0026utm_content\u003doctanist_id\"\u003eOctanist account\u003c/a\u003e."
       }
     ]
   },
@@ -101,7 +101,7 @@ ___TEMPLATE_PARAMETERS___
         "name": "ga4Id",
         "displayName": "GA4 - Measurement ID",
         "simpleValueType": true,
-        "help": "Enter a valid GA4 Measurement ID (G-XXXXXXXXXX). This value can be found in your GA4 Datastream. Only enter this value if you want to send events for \u003ca href\u003d\"https://support.google.com/analytics/answer/9267735?hl\u003den#:~:text\u003dwebsite%20or%20app-,For%20lead%20generation,-We%20recommend%20these\"\u003eLead Generation\u003c/a\u003e.",
+        "help": "Enter a valid GA4 Measurement ID (G-XXXXXXXXXX). This value can be found in your GA4 Datastream. Only enter this value if you want to send events for \u003ca href\u003d\"https://support.google.com/analytics/answer/9267735?hl\u003den#:~:text\u003dwebsite%20or%20app-,For%20lead%20generation,-We%20recommend%20these\"\u003eLead Generation\u003c/a\u003e. \n\n\u003cbr\u003e\u003c/br\u003e\n\nRead more about this in the \u003ca href\u003d\"https://docs.octanist.com/outgoing-integrations/google-analytics?utm_source\u003dgoogle\u0026utm_medium\u003dgtm\u0026utm_campaign\u003doctanist_gtm_template\u0026utm_id\u003doctanist_gtm_template_help_text\u0026utm_content\u003dgoogle-analytics\"\u003eOctanist documentation\u003c/a\u003e.",
         "alwaysInSummary": true,
         "clearOnCopy": true,
         "notSetText": "Enter a valid GA4 Measurement ID."
@@ -117,13 +117,113 @@ ___TEMPLATE_PARAMETERS___
         "notSetText": "Enter a custom value."
       }
     ]
+  },
+  {
+    "type": "GROUP",
+    "name": "consent",
+    "displayName": "Consent",
+    "groupStyle": "ZIPPY_CLOSED",
+    "subParams": [
+      {
+        "type": "RADIO",
+        "name": "consentMethod",
+        "displayName": "Consent management",
+        "radioItems": [
+          {
+            "value": "gcm",
+            "displayValue": "Use Google Consent Mode (default)",
+            "help": "Use this option \u003ca href\u003d\"https://support.google.com/google-ads/answer/10000067?hl\u003den#:~:text\u003dConsent%20mode%20lets%20you%20communicate,behavior%20and%20respect%20users\u0027%20choices.\"\u003eGoogle Consent Mode\u003c/a\u003e implemented. This is required for sending data to ad platforms with the user consent."
+          },
+          {
+            "value": "manual",
+            "subParams": [
+              {
+                "type": "SELECT",
+                "name": "gcmAnalyticsStorage",
+                "displayName": "Analytics Storage (analytics_storage)",
+                "macrosInSelect": true,
+                "selectItems": [
+                  {
+                    "value": "GRANTED",
+                    "displayValue": "Granted"
+                  },
+                  {
+                    "value": "DENIED",
+                    "displayValue": "Denied"
+                  }
+                ],
+                "simpleValueType": true,
+                "help": "Enables storage (such as cookies) related to analytics e.g. visit duration. Required for sending data from octanist to Google Analytics 4.\n\u003cbr\u003e\u003c/br\u003e\n\u003cb\u003eIMPORTANT:\u003c/b\u003e Ensure the values are either \u003ccode\u003e\"GRANTED\"\u003c/code\u003e, \u003ccode\u003e\"DENIED\"\u003c/code\u003e, or \u003ccode\u003etrue\u003c/code\u003e/\u003ccode\u003efalse\u003c/code\u003e (boolean).\u003cbr\u003e"
+              },
+              {
+                "type": "SELECT",
+                "name": "gcmAdStorage",
+                "displayName": "Ad Storage (ad_storage)",
+                "macrosInSelect": true,
+                "selectItems": [
+                  {
+                    "value": "GRANTED",
+                    "displayValue": "Granted"
+                  },
+                  {
+                    "value": "DENIED",
+                    "displayValue": "Denied"
+                  }
+                ],
+                "simpleValueType": true,
+                "help": "Enables storage (such as cookies) related to advertising and is required for sending consented data to Google Ads, Meta, and other advertising platforms. If set to DENIED, Google Consent Mode will estimate (model) the data instead of directly collecting it.\u003cbr\u003e\u003c/br\u003e\n\u003cb\u003eIMPORTANT:\u003c/b\u003e Ensure the values are either \u003ccode\u003e\"GRANTED\"\u003c/code\u003e, \u003ccode\u003e\"DENIED\"\u003c/code\u003e, or \u003ccode\u003etrue\u003c/code\u003e/\u003ccode\u003efalse\u003c/code\u003e (boolean).\u003cbr\u003e"
+              },
+              {
+                "type": "SELECT",
+                "name": "gcmAdPersonalization",
+                "displayName": "Ad Personalization (ad_personalization)",
+                "macrosInSelect": true,
+                "selectItems": [
+                  {
+                    "value": "GRANTED",
+                    "displayValue": "Granted"
+                  },
+                  {
+                    "value": "DENIED",
+                    "displayValue": "Denied"
+                  }
+                ],
+                "simpleValueType": true,
+                "help": "Sets consent for personalized advertising. If set to DENIED, Google Consent Mode will estimate (model) the data instead of directly collecting it.\u003cbr\u003e\u003c/br\u003e\n\u003cb\u003eIMPORTANT:\u003c/b\u003e Ensure the values are either \u003ccode\u003e\"GRANTED\"\u003c/code\u003e, \u003ccode\u003e\"DENIED\"\u003c/code\u003e, or \u003ccode\u003etrue\u003c/code\u003e/\u003ccode\u003efalse\u003c/code\u003e (boolean).\u003cbr\u003e"
+              },
+              {
+                "type": "SELECT",
+                "name": "gcmAdUserData",
+                "displayName": "Ad User Data (ad_personalization)",
+                "macrosInSelect": true,
+                "selectItems": [
+                  {
+                    "value": "GRANTED",
+                    "displayValue": "Granted"
+                  },
+                  {
+                    "value": "DENIED",
+                    "displayValue": "Denied"
+                  }
+                ],
+                "simpleValueType": true,
+                "help": "Sets consent for sending user data related to advertising to Google (e.g. \u003ca href\u003d\"https://support.google.com/adspolicy/answer/6242605?hl\u003den#:~:text\u003dadvertising%20policy.-,First%2Dparty%20data%C2%A0,-First%2Dparty%20data\"\u003eFirst-Party Data\u003c/a\u003e collection). If set to DENIED, Google Consent Mode will estimate (model) the data instead of directly collecting it.\u003cbr\u003e\u003c/br\u003e\n\u003cb\u003eIMPORTANT:\u003c/b\u003e Ensure the values are either \u003ccode\u003e\"GRANTED\"\u003c/code\u003e, \u003ccode\u003e\"DENIED\"\u003c/code\u003e, or \u003ccode\u003etrue\u003c/code\u003e/\u003ccode\u003efalse\u003c/code\u003e (boolean).\u003cbr\u003e"
+              }
+            ],
+            "displayValue": "Manual consent settings",
+            "help": "Use this option if you do \u003cb\u003enot\u003c/b\u003e have \u003ca href\u003d\"https://support.google.com/google-ads/answer/10000067?hl\u003den#:~:text\u003dConsent%20mode%20lets%20you%20communicate,behavior%20and%20respect%20users\u0027%20choices.\"\u003eGoogle Consent Mode\u003c/a\u003e. implemented or want to use your own variables and values to send data to Octanist. This is required for sending data to ad platforms with the user consent."
+          }
+        ],
+        "simpleValueType": true
+      }
+    ]
   }
 ]
 
 
 ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
-/* octanist v0.2 - Visit https://octanist.com/ for more information
+/* octanist v1.1 - Visit https://octanist.com/ for more information
 
 octanist was created by Ward Lavrijen, Jorg van de Ven & John van Beek.
 
@@ -172,14 +272,34 @@ const pathName = getUrl('path');
 const hostName = getUrl('host');
 
 // Google Consent Mode
-function getConsentStatus(type) {
-  return isConsentGranted(type);
+
+const consentMethod = data.consentMethod;
+log("Selected consent method: " + consentMethod);
+
+let gcm_ad_storage;
+let gcm_ad_user_data;
+let gcm_ad_personalization;
+let gcm_analytics_storage;
+
+function normalizeConsent(value) {
+  if (value === "GRANTED") return true;
+  if (value === "DENIED") return false;
+  return !!value; 
 }
 
-const gcm_ad_storage = getConsentStatus('ad_storage');
-const gcm_ad_user_data = getConsentStatus('ad_user_data');
-const gcm_ad_personalization = getConsentStatus('ad_personalization');
-const gcm_analytics_storage = getConsentStatus('analytics_storage');
+if (consentMethod === "gcm") {
+  gcm_ad_storage = normalizeConsent(isConsentGranted('ad_storage'));
+  gcm_ad_user_data = normalizeConsent(isConsentGranted('ad_user_data'));
+  gcm_ad_personalization = normalizeConsent(isConsentGranted('ad_personalization'));
+  gcm_analytics_storage = normalizeConsent(isConsentGranted('analytics_storage'));
+} else if (consentMethod === "manual") {
+  gcm_analytics_storage = normalizeConsent(data.gcmAnalyticsStorage);
+  gcm_ad_user_data = normalizeConsent(data.gcmAdUserData);
+  gcm_ad_personalization = normalizeConsent(data.gcmAdPersonalization);
+  gcm_ad_storage = normalizeConsent(data.gcmAdStorage);
+} else {
+  log("Unknown consent method:", consentMethod);
+}
 
 // Create Final URL
 const url = "https://octanist.com/api/integrations/incoming/manual/" + octId + "/?";
@@ -477,5 +597,4 @@ scenarios: []
 ___NOTES___
 
 Created on 11/1/2024, 8:30:20 PM
-
 
