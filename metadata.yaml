@@ -2,9 +2,11 @@ homepage: "https://octanist.com/"
 documentation: "https://docs.octanist.com/"
 versions:
   # Latest version
+  - sha: b8be36a5eb03de7cd089b17e306603354a11a19c
+    changeNotes: Added encodeUri to prevent URL breakage.
+  # Older versions
   - sha: f25c05171b15ada84a2d7e00307c6104ed1cb4b0
     changeNotes: Added LinkedIn Cookie for tracking.
-  # Older versions
   - sha: 9d8a2b1cddc27b9bb6c6d5d11fc0cd5583d0f2f9
     changeNotes: Better code and extended the GCM functonality.
   - sha: 46be7f1707664ad2489c6038a9286d5eabd079eb
