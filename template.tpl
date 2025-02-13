@@ -238,6 +238,7 @@ const queryPermission = require('queryPermission');
 const sendPixel = require('sendPixel');
 const getCookieValues = require('getCookieValues');
 const isConsentGranted = require('isConsentGranted');
+const encodeUri = require('encodeUri');
 
 // Field Data - Entered by the user
 const octId = data.octanistID;
@@ -311,7 +312,7 @@ urlParams.push("analytics_storage=" + (gcm_analytics_storage));
 const finalUrl = url + urlParams.join("&");
 
 // Send URL to octanist
-if (queryPermission('send_pixel', finalUrl)) {
+if (queryPermission('send_pixel', encodeUri(finalUrl))) {
   sendPixel(finalUrl);
 }
 
@@ -319,7 +320,6 @@ log('url =', finalUrl);
 log('data =', data);
 
 data.gtmOnSuccess();
-
 
 ___WEB_PERMISSIONS___
 
