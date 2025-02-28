@@ -1,22 +1,17 @@
-# Octanist - Server-Side Client #
+# Octanist - Offline Conversion Tracking and Lead Qualification #
 
 Turn leads into value – Octanist makes offline conversion tracking effortless and accessible for everyone.
 
-The Octanist Client Template allows you to capture HTTP responses whenever you qualify a lead. Octanist will send one of the following statuses to the server container:  
+Octanist enhances the value of your online campaigns by enabling clients to qualify leads through an intuitive interface. It tracks converted leads (sales) and sends this data back to Google Ads, with future integrations planned for Google Analytics 4, Meta, and other platforms. This approach provides a complete view of your campaign performance, helping to reduce costs and optimize targeting and analysis.
 
-- **`converted_lead`** – Won lead  
-- **`qualified_lead`** – Qualified but not yet converted  
-- **`unconverted_lead`** – Lost lead  
+- For a detailed guide, visit **[https://octanist.com/docs](https://docs.octanist.com/incoming-integrations/gtm/)**.
+- For support, reach out to **support@octanist.com**.
+- Create a free account at **[octanist.com](https://octanist.com)**.
 
-The Client Template captures these lead qualifications and sends them to the server, allowing you to modify them or forward them to other marketing platforms.  
+## How to use
 
-- For a detailed guide, visit **[https://octanist.com/docs/server](https://docs.octanist.com/outgoing-integrations/gtm-server)**.  
-- For support, reach out to **support@octanist.com**.  
-- Create a free account at **[octanist.com](https://octanist.com)**.  
-
-## How to use  
-
-1. **Upload the Template**: Upload this GTM Client Template to your **Server-Side GTM container**.  
-2. **Create a Client**: Set up a client using this Server-Side GTM template.  
-3. **Create a Trigger**: Create a trigger with the Client "Octanist" to capture all data sent from Octanist to the server.  
-4. **Add the Trigger**: Attach the trigger to an existing or new tag to send your Octanist values to any platform available in **Server-Side Google Tag Manager**.  
+1. **Upload the Template**: Upload this GTM template to your GTM container.
+2. **Create an Octanist Tag**: Create a tag using this GTM template.
+3. **Account ID**: Enter your Octanist account ID, which can be found in your Octanist account.
+4. **Lead Info**: Enter the lead information you want to use to identify your lead.
+5. **Trigger**: Add a trigger for when your lead submits a form and the lead information is available in the `dataLayer`.
