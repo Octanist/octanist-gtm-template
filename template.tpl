@@ -261,6 +261,10 @@ let fbpCookie = getCookieValues('_fbp');
 // Get LinkedIn Click Id Values
 let liFatIdCookie = getCookieValues('li_fat_id');
 
+// Get Microsoft Ads / Bing Click Id values
+let msclkidCookie = getCookieValues('_uetmsclkid')[0];
+const msclkid = msclkidCookie.split("_uet")[1];
+
 // Get Analytics Client & Session Id Values
 let gaCidCookie = getCookieValues('_ga');
 const gaClientId = (gaCidCookie && gaCidCookie[0]) ? gaCidCookie[0].slice(6) : "";
@@ -293,11 +297,12 @@ const url = "https://octanist.com/api/integrations/incoming/manual/" + octId + "
 
 const urlParams = [];
 urlParams.push("gclid=" + (gclid || ""));
-urlParams.push("ga4cid=" + (gaClientId || ""));
-urlParams.push("ga4sid=" + (gaSessionId || ""));
 urlParams.push("fbc=" + (fbcCookie || ""));
 urlParams.push("fbp=" + (fbpCookie || ""));
 urlParams.push("li_fat_id=" + (liFatIdCookie || ""));
+urlParams.push("msclkid=" + (msclkid || ""));
+urlParams.push("ga4cid=" + (gaClientId || ""));
+urlParams.push("ga4sid=" + (gaSessionId || ""));
 urlParams.push("name=" + (leadName || ""));
 urlParams.push("email=" + (leadEmail || ""));
 urlParams.push("phone=" + (leadPhone || ""));
