@@ -263,7 +263,7 @@ let liFatIdCookie = getCookieValues('li_fat_id');
 
 // Get Microsoft Ads / Bing Click Id values
 let msclkidCookie = getCookieValues('_uetmsclkid')[0];
-const msclkid = msclkidCookie.split("_uet")[1];
+const msclkid = (msclkidCookie && msclkidCookie.split("_uet")[1]) ? msclkidCookie.split("_uet")[1] : "";
 
 // Get Analytics Client & Session Id Values
 let gaCidCookie = getCookieValues('_ga');
