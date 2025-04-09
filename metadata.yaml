@@ -4,7 +4,6 @@ versions:
   # Latest version
   - sha: fc358876e8e913dfaf73e678541c2505644b585f
     changeNotes: Created a fallback for Microsoft Ads Click IDs when not available.
-  # Older versions
   - sha: b97e2415d6fb2f8ad054156bfd7c37a7f8480562
     changeNotes: Added parameters for Microsoft Ads integration.
   - sha: b8be36a5eb03de7cd089b17e306603354a11a19c
