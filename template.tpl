@@ -274,7 +274,7 @@ let gaSessionId;
 
 if (ga4Id) {
   gaSidCookie = getCookieValues("_ga_" + ga4Id.slice(2));
-  gaSessionId = gaSidCookie[0].split(".")[2];
+  gaSessionId = gaSidCookie.split(".")[0].indexOf("GS2") === 0 ? gaSidCookie.split("$")[0].split("s")[1] : gaSidCookie.split(".")[2];
 }
 
 // Get Page & Website data
