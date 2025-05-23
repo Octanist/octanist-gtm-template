@@ -104,7 +104,8 @@ ___TEMPLATE_PARAMETERS___
         "help": "Enter a valid GA4 Measurement ID (G-XXXXXXXXXX). This value can be found in your GA4 Datastream. Only enter this value if you want to send events for \u003ca href\u003d\"https://support.google.com/analytics/answer/9267735?hl\u003den#:~:text\u003dwebsite%20or%20app-,For%20lead%20generation,-We%20recommend%20these\"\u003eLead Generation\u003c/a\u003e. \n\n\u003cbr\u003e\u003c/br\u003e\n\nRead more about this in the \u003ca href\u003d\"https://docs.octanist.com/outgoing-integrations/google-analytics?utm_source\u003dgoogle\u0026utm_medium\u003dgtm\u0026utm_campaign\u003doctanist_gtm_template\u0026utm_id\u003doctanist_gtm_template_help_text\u0026utm_content\u003dgoogle-analytics\"\u003eOctanist documentation\u003c/a\u003e.",
         "alwaysInSummary": true,
         "clearOnCopy": true,
-        "notSetText": "Enter a valid GA4 Measurement ID."
+        "notSetText": "Enter a valid GA4 Measurement ID.",
+        "valueHint": "G-XXXXXXXXXX"
       },
       {
         "type": "TEXT",
@@ -219,6 +220,33 @@ ___TEMPLATE_PARAMETERS___
       }
     ],
     "groupStyle": "ZIPPY_CLOSED"
+  },
+  {
+    "type": "GROUP",
+    "name": "customDomainDelivery",
+    "displayName": "Custom Domain Delivery",
+    "groupStyle": "ZIPPY_CLOSED",
+    "subParams": [
+      {
+        "type": "TEXT",
+        "name": "customDomain",
+        "displayName": "Custom Domain",
+        "simpleValueType": true,
+        "help": "\u003cstrong\u003eLeave empty\u003c/strong\u003e unless you’ve requested a custom domain via support@octanist.com. \u003cbr\u003e\u003c/br\u003e You can host Lead Qualification on your own domain, please contact \u003ca href\u003d\"https://octanist.com/contact/?utm_source\u003dgoogle\u0026utm_medium\u003dgtm\u0026utm_campaign\u003doctanist_gtm_template\u0026utm_id\u003doctanist_gtm_template_help_text\u0026utm_content\u003dcustom-domain\"\u003eOctanist\u003c/a\u003e for available options.\u003cbr\u003e\u003c/br\u003e\nEnter your custom domain in the following format: example.yourdomain.com",
+        "valueValidators": [
+          {
+            "type": "REGEX",
+            "args": [
+              "^(?!https:\\/\\/|www\\.).+[^\\/]$"
+            ],
+            "errorMessage": "Please enter a domain in the following format: example.yourdomain.com",
+            "enablingConditions": []
+          }
+        ],
+        "valueHint": "example.yourdomain.com"
+      }
+    ],
+    "help": "By default, \u003cstrong\u003eleave empty\u003c/strong\u003e. Only enter a value here if you’ve requested a custom domain through support@octanist.com."
   }
 ]
 
@@ -249,6 +277,9 @@ const leadName = data.company;
 // Optional Field Data
 const ga4Id = data.ga4Id;
 const sf1 = data.sf1;
+
+// Advanced Data
+const customDomain = data.customDomain;
 
 // Get Google Ads Click Id Values
 let gcl_awCookie = getCookieValues('_gcl_aw');
@@ -292,8 +323,15 @@ let gcm_ad_personalization = consentMethod === "manual" ? data.gcmAdPersonalizat
 let gcm_analytics_storage = consentMethod === "manual" ? data.gcmAnalyticsStorage : isConsentGranted('analytics_storage');
 
 
+let domain; 
+if(customDomain) {
+  domain = customDomain;
+} else {
+  domain = "octanist.com";
+}
+
 // Create Final URL
-const url = "https://octanist.com/api/integrations/incoming/manual/" + octId + "/?";
+const url = "https://" + domain + "/api/integrations/incoming/manual/" + octId + "/?";
 
 const urlParams = [];
 urlParams.push("gclid=" + (gclid || ""));
@@ -325,6 +363,7 @@ log('url =', finalUrl);
 log('data =', data);
 
 data.gtmOnSuccess();
+
 
 ___WEB_PERMISSIONS___
 
@@ -361,19 +400,7 @@ ___WEB_PERMISSIONS___
           "key": "allowedUrls",
           "value": {
             "type": 1,
-            "string": "specific"
-          }
-        },
-        {
-          "key": "urls",
-          "value": {
-            "type": 2,
-            "listItem": [
-              {
-                "type": 1,
-                "string": "https://octanist.com/*"
-              }
-            ]
+            "string": "any"
           }
         }
       ]
@@ -589,4 +616,3 @@ scenarios: []
 ___NOTES___
 
 Created on 11/1/2024, 8:30:20 PM
-
