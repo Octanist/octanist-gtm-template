@@ -121,6 +121,48 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "GROUP",
+    "name": "campaignData",
+    "displayName": "Marketing Campaign Data",
+    "groupStyle": "ZIPPY_CLOSED",
+    "subParams": [
+      {
+        "type": "TEXT",
+        "name": "utm_source",
+        "displayName": "Campaign Source",
+        "simpleValueType": true,
+        "alwaysInSummary": true,
+        "clearOnCopy": true,
+        "help": "\u003cb\u003eOptional\u003c/b\u003e: Enter your own Campaign Source (\u003cem\u003eutm_source\u003c/em\u003e) if you\u0027re storing it (e.g. in a cookie) and want to pass it via a variable for custom labeling in the \u003ca href\u003d\"https://octanist.com/dashboard/\"\u003e Octanist Dashboard\u003c/a\u003e.",
+        "notSetText": "Enter a custom Source (optional).",
+        "valueHint": "google"
+      },
+      {
+        "type": "TEXT",
+        "name": "utm_medium",
+        "displayName": "Campaign Medium",
+        "simpleValueType": true,
+        "alwaysInSummary": true,
+        "help": "\u003cb\u003eOptional\u003c/b\u003e: Enter your own Campaign Medium (\u003cem\u003eutm_medium\u003c/em\u003e) if you\u0027re storing it (e.g. in a cookie) and want to pass it via a variable for custom labeling in the \u003ca href\u003d\"https://octanist.com/dashboard/\"\u003e Octanist Dashboard\u003c/a\u003e.",
+        "clearOnCopy": true,
+        "notSetText": "Enter a custom Medium (optional).",
+        "valueHint": "cpc"
+      },
+      {
+        "type": "TEXT",
+        "name": "utm_campaign",
+        "displayName": "Campaign Name",
+        "simpleValueType": true,
+        "alwaysInSummary": true,
+        "clearOnCopy": true,
+        "help": "\u003cb\u003eOptional\u003c/b\u003e: Enter your own Campaign (\u003cem\u003eutm_campaign\u003c/em\u003e) if you\u0027re storing it (e.g. in a cookie) and want to pass it via a variable for custom labeling in the \u003ca href\u003d\"https://octanist.com/dashboard/\"\u003e Octanist Dashboard\u003c/a\u003e.",
+        "notSetText": "Enter a custom Campaign (optional).",
+        "valueHint": "lead_gen_campaign"
+      }
+    ],
+    "help": "\u003cb\u003eOptional\u003c/b\u003e: Enter your own custom channel grouping and/or UTM parameters. By default, Octanist will extract and group these values for you."
+  },
+  {
+    "type": "GROUP",
     "name": "consent",
     "displayName": "Consent",
     "subParams": [
@@ -253,7 +295,7 @@ ___TEMPLATE_PARAMETERS___
 
 ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
-/* octanist v1.1 - Visit https://octanist.com/ for more information
+/* octanist v1.5 - Visit https://octanist.com/ for more information
 
 octanist was created by Ward Lavrijen, Jorg van de Ven & John van Beek.
 
@@ -312,8 +354,12 @@ if (ga4Id) {
 const pathName = getUrl('path');
 const hostName = getUrl('host');
 
-// Google Consent Mode
+// Get Campaign Data
+const trafficSource = data.utm_source;
+const trafficMedium = data.utm_medium;
+const trafficCampaign = data.utm_campaign;
 
+// Google Consent Mode
 const consentMethod = data.consentMethod || "gcm"; // Default to "gcm" if not specified
 log("Selected consent method: " + consentMethod);
 
@@ -347,6 +393,9 @@ urlParams.push("phone=" + (leadPhone || ""));
 urlParams.push("website=" + (hostName || ""));
 urlParams.push("path=" + (pathName || ""));
 urlParams.push("custom=" + (sf1 || ""));
+urlParams.push("utm_source=" + (trafficSource || ""));
+urlParams.push("utm_medium=" + (trafficMedium || ""));
+urlParams.push("utm_campaign=" + (trafficCampaign || ""));
 urlParams.push("ad_storage=" + (gcm_ad_storage));
 urlParams.push("ad_user_data=" + (gcm_ad_user_data));
 urlParams.push("ad_personalization=" + (gcm_ad_personalization));
