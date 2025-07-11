@@ -2,6 +2,8 @@ homepage: "https://octanist.com/"
 documentation: "https://docs.octanist.com/"
 versions:
   # Latest version
+  - sha: 32a502e80601be2d03327dd4787802352cd60ed8
+    changeNotes: Added the ability to set custom UTM-parameters for dashboarding purposes
   - sha: e560e54b91c0070edc0b5637c71d093d309a522f
     changeNotes: Added support for custom domain delivery.
   - sha: 668f74730237dcff95a35f332ea3f99c9b50b7de
