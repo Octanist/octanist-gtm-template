@@ -98,17 +98,6 @@ ___TEMPLATE_PARAMETERS___
     "subParams": [
       {
         "type": "TEXT",
-        "name": "ga4Id",
-        "displayName": "GA4 - Measurement ID",
-        "simpleValueType": true,
-        "help": "Enter a valid GA4 Measurement ID (G-XXXXXXXXXX). This value can be found in your GA4 Datastream. Only enter this value if you want to send events for \u003ca href\u003d\"https://support.google.com/analytics/answer/9267735?hl\u003den#:~:text\u003dwebsite%20or%20app-,For%20lead%20generation,-We%20recommend%20these\"\u003eLead Generation\u003c/a\u003e. \n\n\u003cbr\u003e\u003c/br\u003e\n\nRead more about this in the \u003ca href\u003d\"https://docs.octanist.com/outgoing-integrations/google-analytics?utm_source\u003dgoogle\u0026utm_medium\u003dgtm\u0026utm_campaign\u003doctanist_gtm_template\u0026utm_id\u003doctanist_gtm_template_help_text\u0026utm_content\u003dgoogle-analytics\"\u003eOctanist documentation\u003c/a\u003e.",
-        "alwaysInSummary": true,
-        "clearOnCopy": true,
-        "notSetText": "Enter a valid GA4 Measurement ID.",
-        "valueHint": "G-XXXXXXXXXX"
-      },
-      {
-        "type": "TEXT",
         "name": "sf1",
         "displayName": "Custom Field #1",
         "simpleValueType": true,
@@ -309,6 +298,7 @@ const sendPixel = require('sendPixel');
 const getCookieValues = require('getCookieValues');
 const isConsentGranted = require('isConsentGranted');
 const encodeUri = require('encodeUri');
+const readAnalyticsStorage = require('readAnalyticsStorage');
 
 // Field Data - Entered by the user
 const octId = data.octanistID;
@@ -317,7 +307,6 @@ const leadPhone = data.leadPhone;
 const leadName = data.company;
 
 // Optional Field Data
-const ga4Id = data.ga4Id;
 const sf1 = data.sf1;
 
 // Advanced Data
@@ -331,24 +320,27 @@ const gclid = (gcl_awCookie && gcl_awCookie[0]) ? gcl_awCookie[0].split(".")[2] 
 let fbcCookie = getCookieValues('_fbc');
 let fbpCookie = getCookieValues('_fbp');
 
+const fbc = (fbcCookie && fbcCookie[0]) || "";
+const fbp = (fbpCookie && fbpCookie[0]) || "";
+
 // Get LinkedIn Click Id Values
 let liFatIdCookie = getCookieValues('li_fat_id');
+const li_fat_id = (liFatIdCookie && liFatIdCookie[0]) || "";
 
 // Get Microsoft Ads / Bing Click Id values
-let msclkidCookie = getCookieValues('_uetmsclkid')[0];
-const msclkid = (msclkidCookie && msclkidCookie.split("_uet")[1]) ? msclkidCookie.split("_uet")[1] : "";
+let msclkidValues = getCookieValues('_uetmsclkid');
+let msclkidCookie = msclkidValues && msclkidValues[0];
+const msclkid = (msclkidCookie && msclkidCookie.split("_uet")[1])? msclkidCookie.split("_uet")[1]: "";
 
 // Get Analytics Client & Session Id Values
-let gaCidCookie = getCookieValues('_ga');
-const gaClientId = (gaCidCookie && gaCidCookie[0]) ? gaCidCookie[0].slice(6) : "";
+let ga = {};
 
-let gaSidCookie;
-let gaSessionId;
-
-if (ga4Id) {
-  gaSidCookie = getCookieValues("_ga_" + ga4Id.slice(2))[0];
-  gaSessionId = gaSidCookie.split(".")[0].indexOf("GS2") === 0 ? gaSidCookie.split("$")[0].split("s")[1] : gaSidCookie.split(".")[2];
+if (typeof readAnalyticsStorage === "function") {
+  ga = readAnalyticsStorage() || {};
 }
+
+const gaClientId = ga.client_id || "";
+const gaSessionId = (ga.sessions && ga.sessions[0] && ga.sessions[0].session_id) || "";
 
 // Get Page & Website data
 const pathName = getUrl('path');
@@ -381,9 +373,9 @@ const url = "https://" + domain + "/api/integrations/incoming/manual/" + octId +
 
 const urlParams = [];
 urlParams.push("gclid=" + (gclid || ""));
-urlParams.push("fbc=" + (fbcCookie || ""));
-urlParams.push("fbp=" + (fbpCookie || ""));
-urlParams.push("li_fat_id=" + (liFatIdCookie || ""));
+urlParams.push("fbc=" + (fbc || ""));
+urlParams.push("fbp=" + (fbp || ""));
+urlParams.push("li_fat_id=" + (li_fat_id || ""));
 urlParams.push("msclkid=" + (msclkid || ""));
 urlParams.push("ga4cid=" + (gaClientId || ""));
 urlParams.push("ga4sid=" + (gaSessionId || ""));
@@ -651,6 +643,16 @@ ___WEB_PERMISSIONS___
     },
     "clientAnnotations": {
       "isEditedByUser": true
+    },
+    "isRequired": true
+  },
+  {
+    "instance": {
+      "key": {
+        "publicId": "read_analytics_storage",
+        "versionId": "1"
+      },
+      "param": []
     },
     "isRequired": true
   }
