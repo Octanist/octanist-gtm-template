@@ -2,6 +2,8 @@ homepage: "https://octanist.com/"
 documentation: "https://docs.octanist.com/"
 versions:
   # Latest version
+  - sha: 9e9ad9ef2147792fc674d9bcc64d0e909185c093
+    changeNotes: Added collection of Click IDs for X, TikTok, Reddit and Snap.
   - sha: c27f025967996efc671f9c91616608f2c99452f0
     changeNotes: Added fallbacks to prevent certain click parameters from breaking. Added functionality to automatically read GA4 Client and Session IDs.
   - sha: 32a502e80601be2d03327dd4787802352cd60ed8
@@ -35,4 +37,5 @@ versions:
   - sha: dffc69779a22e436dddbf9f11524ff297a8f1949
     changeNotes: Includes version 0.1 of Octanist, featuring essential functionalities for lead qualification and offline conversion tracking. Captures data such as GCLID, company name, email, phone number, website/domain, and page path.
   
+
 
