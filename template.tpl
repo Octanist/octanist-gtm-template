@@ -332,6 +332,22 @@ let msclkidValues = getCookieValues('_uetmsclkid');
 let msclkidCookie = msclkidValues && msclkidValues[0];
 const msclkid = (msclkidCookie && msclkidCookie.split("_uet")[1])? msclkidCookie.split("_uet")[1]: "";
 
+// Get Reddit Ads Click Id values
+let rdtCookie = getCookieValues('_rdt_cid');
+const rdt_cid = (rdtCookie && rdtCookie[0]) || "";
+
+// Get TikTok Ads Click Id values
+let tikTokCookie = getCookieValues('ttclid');
+const ttclid = (tikTokCookie && tikTokCookie[0]) || "";
+
+// Get X / Twitter Ads Click Id values
+let xCookie = getCookieValues('_twclid');
+const twclid = (xCookie && xCookie[0]) || "";
+
+// Get Snap Ads Click Id values
+let snapCookie = getCookieValues('_scclid');
+const scclid = (snapCookie && snapCookie[0]) || "";
+                              
 // Get Analytics Client & Session Id Values
 let ga = {};
 
@@ -377,6 +393,10 @@ urlParams.push("fbc=" + (fbc || ""));
 urlParams.push("fbp=" + (fbp || ""));
 urlParams.push("li_fat_id=" + (li_fat_id || ""));
 urlParams.push("msclkid=" + (msclkid || ""));
+urlParams.push("rdt_cid=" + (rdt_cid || ""));
+urlParams.push("ttclid=" + (ttclid || ""));
+urlParams.push("twclid=" + (twclid || ""));
+urlParams.push("scclid=" + (scclid || ""));
 urlParams.push("ga4cid=" + (gaClientId || ""));
 urlParams.push("ga4sid=" + (gaSessionId || ""));
 urlParams.push("name=" + (leadName || ""));
