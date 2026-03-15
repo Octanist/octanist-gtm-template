@@ -2,6 +2,8 @@ homepage: "https://octanist.com/"
 documentation: "https://docs.octanist.com/"
 versions:
   # Latest version
+  - sha: 99398677d1ec36077e847f616fe7b8dd1cbe1fb6
+    changeNotes: Updated logo to match the new Octanist branding.
   - sha: 9e9ad9ef2147792fc674d9bcc64d0e909185c093
     changeNotes: Added collection of Click IDs for X, TikTok, Reddit and Snap.
   - sha: c27f025967996efc671f9c91616608f2c99452f0
