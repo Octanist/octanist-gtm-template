@@ -4,7 +4,7 @@ Turn leads into value – Octanist makes offline conversion tracking effortless 
 
 Octanist enhances the value of your online campaigns by enabling clients to qualify leads through an intuitive interface. It tracks converted leads (sales) and sends this data back to Google Ads, with future integrations planned for Google Analytics 4, Meta, and other platforms. This approach provides a complete view of your campaign performance, helping to reduce costs and optimize targeting and analysis.
 
-- For a detailed guide, visit **[https://octanist.com/docs](https://docs.octanist.com/incoming-integrations/gtm/)**.
+- For a detailed guide, visit **[https://octanist.com/docs](https://octanist.com/docs/incoming-integrations/gtm)**.
 - For support, reach out to **support@octanist.com**.
 - Create a free account at **[octanist.com](https://octanist.com)**.
 
